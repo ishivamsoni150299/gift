@@ -39,6 +39,7 @@ const aliases = new Map([
 ]);
 
 const reveals = document.querySelectorAll(".reveal");
+const progressDots = document.querySelectorAll("[data-progress-dot]");
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -52,6 +53,17 @@ const observer = new IntersectionObserver(
 
 reveals.forEach((item) => observer.observe(item));
 
+function setProgress(id) {
+  let hasReachedTarget = true;
+
+  progressDots.forEach((dot) => {
+    dot.classList.toggle("is-active", hasReachedTarget);
+    if (dot.dataset.progressDot === id) {
+      hasReachedTarget = false;
+    }
+  });
+}
+
 function normalizeAnswer(value) {
   const cleaned = value.trim().toLowerCase().replace(/[,]+/g, "").replace(/\s+/g, " ");
   return aliases.get(cleaned) || cleaned;
@@ -63,6 +75,13 @@ function showStep(id) {
 
   step.classList.remove("locked");
   step.classList.add("unlocked");
+  setProgress(id);
+
+  if (id === "meeting") {
+    document.body.classList.add("is-celebrating");
+    window.setTimeout(() => document.body.classList.remove("is-celebrating"), 1200);
+  }
+
   window.setTimeout(() => {
     step.scrollIntoView({ behavior: "smooth", block: "start" });
     step.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
@@ -115,9 +134,13 @@ document.querySelector("#replay")?.addEventListener("click", () => {
     feedback.classList.remove("is-good", "is-soft");
   });
 
+  setProgress("start");
+  document.body.classList.remove("is-celebrating");
+
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 window.addEventListener("load", () => {
+  setProgress("start");
   document.querySelectorAll(".lock-screen .reveal").forEach((item) => item.classList.add("is-visible"));
 });
