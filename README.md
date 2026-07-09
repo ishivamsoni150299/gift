@@ -4,7 +4,7 @@ This is a static digital gift page for the engagement on 17 July 2026.
 
 ## Personalize it
 
-1. Replace `assets/fiancee-photo.svg` with her real image, or send me the image and I will wire it in.
+1. Add more photos to `assets/` and wire them into the gallery in `index.html`.
 2. Edit the names, message, and memories in `index.html`.
 3. Open `index.html` in a browser to preview.
 
