@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" role="img" aria-label="Romantic placeholder portrait">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffd9d2"/>
+      <stop offset="0.48" stop-color="#b84a62"/>
+      <stop offset="1" stop-color="#331522"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="42%" cy="26%" r="54%">
+      <stop offset="0" stop-color="#fff8ee" stop-opacity="0.92"/>
+      <stop offset="0.42" stop-color="#f5b1be" stop-opacity="0.52"/>
+      <stop offset="1" stop-color="#5f1e32" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="960" height="1200" fill="url(#bg)"/>
+  <rect width="960" height="1200" fill="url(#glow)"/>
+  <circle cx="678" cy="252" r="142" fill="#fff0d0" opacity="0.62"/>
+  <path d="M116 1042C278 770 388 600 514 468c102-106 206-158 330-182v914H116z" fill="#25171b" opacity="0.34"/>
+  <path d="M0 1015c118-118 247-191 387-218 151-29 314 2 489 94v309H0z" fill="#fff8f3" opacity="0.14"/>
+  <g filter="url(#soft)" opacity="0.44">
+    <path d="M204 238c112 36 188 103 228 201 30-132 109-210 237-233-96 82-139 181-130 297-94-88-206-110-335-65 73-70 73-137 0-200z" fill="#fff8f3"/>
+  </g>
+  <g fill="#ffd0d8" opacity="0.78">
+    <path d="M166 164c31 16 45 42 42 78-33-13-50-38-42-78z"/>
+    <path d="M806 480c31 16 45 42 42 78-33-13-50-38-42-78z"/>
+    <path d="M236 748c26 13 38 36 35 67-27-12-42-33-35-67z"/>
+    <path d="M726 116c23 12 33 32 31 59-25-10-37-29-31-59z"/>
+  </g>
+  <text x="92" y="1010" fill="#fff8f3" font-family="Georgia, serif" font-size="76" opacity="0.88">Your photo here</text>
+</svg>
