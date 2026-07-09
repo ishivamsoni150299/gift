@@ -3,208 +3,176 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our Engagement Gift</title>
+    <title>A Gift That Opens Slowly</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="gift">
-      <section class="hero" aria-label="Digital engagement gift">
-        <div class="hero__media" aria-hidden="true">
-          <div class="photo-frame">
-            <img src="assets/couple-engagement.jpg" alt="" />
-          </div>
-          <div class="portrait portrait--pink">
-            <img src="assets/her-portrait-pink.jpg" alt="" />
-          </div>
-          <div class="portrait portrait--black">
-            <img src="assets/her-portrait-black.jpg" alt="" />
-          </div>
-          <div class="moon"></div>
-          <div class="petals">
-            <span></span><span></span><span></span><span></span><span></span>
+    <main class="experience">
+      <section class="lock-screen" id="start" aria-labelledby="start-title">
+        <div class="ambient" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="lock-copy reveal">
+          <p class="eyebrow">A private gift</p>
+          <h1 id="start-title">This box does not open all at once.</h1>
+          <p>
+            Some memories deserve to be unlocked slowly. If your heart remembers the answers, every layer will open.
+          </p>
+        </div>
+
+        <div class="gift-box reveal" aria-label="Locked digital gift box">
+          <div class="gift-box__lid"></div>
+          <div class="gift-box__ribbon"></div>
+          <div class="gift-box__body">
+            <span>For you</span>
           </div>
         </div>
 
-        <div class="hero__content reveal">
-          <p class="eyebrow">17 July 2026</p>
-          <h1>For the woman I choose for life.</h1>
-          <p class="lede">
-            A small digital gift for our engagement day, made from our pictures and from everything I feel but cannot
-            always say perfectly.
+        <form class="gate reveal" data-gate="first-meet" aria-describedby="first-hint">
+          <span class="gate__step">Question 1</span>
+          <label for="firstMeet">When did we meet for the first time?</label>
+          <div class="answer-row">
+            <input id="firstMeet" name="firstMeet" type="text" placeholder="Day Month Year" autocomplete="off" />
+            <button type="submit">Unlock</button>
+          </div>
+          <p class="hint" id="first-hint">Hint: it was in November, and my life quietly changed.</p>
+          <p class="feedback" role="status"></p>
+        </form>
+      </section>
+
+      <section class="chapter chapter--meeting locked" id="meeting" data-step="meeting" aria-labelledby="meeting-title">
+        <div class="chapter__text reveal">
+          <p class="eyebrow">Unlocked memory</p>
+          <h2 id="meeting-title">9 November 2025</h2>
+          <p>
+            This was the day I met you for the first time. I did not know how much my future had shifted, but something
+            in me became softer from that day.
           </p>
-          <a class="button" href="#letter">Read my promise</a>
+        </div>
+        <div class="chapter__image reveal">
+          <img src="assets/her-portrait-pink.jpg" alt="Her portrait in pink" />
+        </div>
+
+        <form class="gate gate--inline reveal" data-gate="said-yes" aria-describedby="yes-hint">
+          <span class="gate__step">Question 2</span>
+          <label for="saidYes">On which date did you say yes?</label>
+          <div class="answer-row">
+            <input id="saidYes" name="saidYes" type="text" placeholder="Day Month Year" autocomplete="off" />
+            <button type="submit">Continue</button>
+          </div>
+          <p class="hint" id="yes-hint">Hint: it was in June, before our engagement month began.</p>
+          <p class="feedback" role="status"></p>
+        </form>
+      </section>
+
+      <section class="chapter chapter--yes locked" id="yes" data-step="yes" aria-labelledby="yes-title">
+        <div class="split-photo reveal">
+          <img src="assets/couple-engagement.jpg" alt="Engagement portrait of the couple" />
+        </div>
+        <div class="chapter__text reveal">
+          <p class="eyebrow">The day my answer became us</p>
+          <h2 id="yes-title">14 June 2026</h2>
+          <p>
+            The day you said yes, the future stopped feeling like a dream and started feeling like a promise with your
+            name on it.
+          </p>
+        </div>
+
+        <form class="gate gate--inline reveal" data-gate="chocolate" aria-describedby="chocolate-hint">
+          <span class="gate__step">Question 3</span>
+          <label for="chocolateDate">When did I receive my first chocolate gift?</label>
+          <div class="answer-row">
+            <input id="chocolateDate" name="chocolateDate" type="text" placeholder="Day Month Year" autocomplete="off" />
+            <button type="submit">Open memory</button>
+          </div>
+          <p class="hint" id="chocolate-hint">Hint: it was very close to today, and the wrapper was red.</p>
+          <p class="feedback" role="status"></p>
+        </form>
+      </section>
+
+      <section class="sweet-reveal locked" id="chocolate" data-step="chocolate" aria-labelledby="chocolate-title">
+        <div class="sweet-reveal__image reveal">
+          <img src="assets/sweet-kitkat-memory.jpg" alt="KitKat chocolates from the first chocolate gift" />
+        </div>
+        <div class="sweet-reveal__text reveal">
+          <p class="eyebrow">First chocolate gift</p>
+          <h2 id="chocolate-title">8 July 2026</h2>
+          <p>
+            This one was not expensive. It was sweet because it was from you. A KitKat became a memory because your
+            love was inside that moment.
+          </p>
+          <button class="button" type="button" data-unlock="letter">Open the letter</button>
         </div>
       </section>
 
-      <section class="letter" id="letter">
-        <div class="letter__text reveal">
+      <section class="letter locked" id="letter" data-step="letter" aria-labelledby="letter-title">
+        <div class="letter__paper reveal">
           <p class="script">My love,</p>
-          <h2>Every future I imagine has you in it.</h2>
+          <h2 id="letter-title">Now I can show you what I was hiding.</h2>
           <p>
-            When I look at these pictures, I do not only see beautiful memories. I see the person who makes my heart
-            peaceful, the person who turns ordinary days into something I want to remember.
+            I did not want this gift to show everything at once, because our story did not happen all at once. It grew
+            from a first meeting, to your yes, to small sweet memories, to this engagement day.
           </p>
           <p>
-            On our engagement day, I want you to know that I am choosing you with respect, patience, loyalty, and love.
-            I am choosing your smile, your dreams, your family, your comfort, and every version of us that time will
-            bring.
+            On 17 July 2026, I am not only celebrating an engagement. I am celebrating the woman who made my ordinary
+            life feel chosen. I promise to respect you, protect your peace, listen with patience, and keep choosing you
+            even on the days when love needs effort.
           </p>
-        </div>
-        <div class="vow reveal">
-          <span>My promise to you</span>
           <p>
-            I will stand beside you with honesty and care. I will protect your happiness, listen with patience, and keep
-            choosing you in the simple days and the difficult ones.
+            You are my calm, my favorite person, and the future I want to come home to.
           </p>
+          <button class="button" type="button" data-unlock="gallery">See what I saved</button>
         </div>
       </section>
 
-      <section class="gallery" aria-label="Our engagement photos">
-        <div class="gallery__heading reveal">
-          <p class="eyebrow">Our little gallery</p>
-          <h2>The faces of my forever</h2>
+      <section class="gallery locked" id="gallery" data-step="gallery" aria-labelledby="gallery-title">
+        <div class="gallery__intro reveal">
+          <p class="eyebrow">17 July 2026</p>
+          <h2 id="gallery-title">The gallery I kept for the end.</h2>
+          <p>Every expression. Every little mood. Every version of you that makes me smile.</p>
         </div>
-        <div class="gallery__grid">
-          <article class="photo-story photo-story--wide reveal">
+
+        <div class="memory-grid reveal">
+          <figure class="memory-grid__wide">
             <img src="assets/couple-engagement.jpg" alt="Engagement portrait of the couple" />
-            <div>
-              <span>Us</span>
-              <h3>The beginning</h3>
-              <p>The picture I want to keep as the start of our next chapter.</p>
-            </div>
-          </article>
-          <article class="photo-story reveal">
-            <img src="assets/her-portrait-pink.jpg" alt="Her portrait in a pink outfit" />
-            <div>
-              <span>Her smile</span>
-              <h3>My calm</h3>
-              <p>The softness I want to come home to for the rest of my life.</p>
-            </div>
-          </article>
-          <article class="photo-story reveal">
-            <img src="assets/her-portrait-black.jpg" alt="Her portrait in a black outfit" />
-            <div>
-              <span>Her grace</span>
-              <h3>My blessing</h3>
-              <p>The person I respect, admire, and feel grateful to call mine.</p>
-            </div>
-          </article>
+            <figcaption>Us, beginning the next chapter.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/her-portrait-pink.jpg" alt="Her portrait in pink" />
+            <figcaption>My calm.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/her-portrait-black.jpg" alt="Her portrait in black" />
+            <figcaption>My blessing.</figcaption>
+          </figure>
         </div>
-      </section>
 
-      <section class="expressions" aria-label="Her expressions">
-        <div class="expressions__heading reveal">
-          <p class="eyebrow">Every little expression</p>
-          <h2>The moods I never want to stop seeing</h2>
+        <div class="photo-rows reveal" aria-label="Expression gallery">
+          <img src="assets/her-teal-wink.jpg" alt="Her teal wink portrait" />
+          <img src="assets/her-teal-kiss.jpg" alt="Her teal kiss portrait" />
+          <img src="assets/her-teal-cute.jpg" alt="Her teal cute portrait" />
+          <img src="assets/her-teal-smile.jpg" alt="Her teal smile portrait" />
+          <img src="assets/her-black-wink.jpg" alt="Her black outfit wink portrait" />
+          <img src="assets/her-black-peace.jpg" alt="Her black outfit peaceful portrait" />
+          <img src="assets/her-black-kiss.jpg" alt="Her black outfit kiss portrait" />
+          <img src="assets/her-black-cute.jpg" alt="Her black outfit cute portrait" />
+          <img src="assets/her-pink-peace.jpg" alt="Her pink peaceful portrait" />
+          <img src="assets/her-pink-wink.jpg" alt="Her pink wink portrait" />
+          <img src="assets/her-pink-kiss.jpg" alt="Her pink kiss portrait" />
+          <img src="assets/her-pink-cute.jpg" alt="Her pink cute portrait" />
         </div>
-        <p class="expression-label reveal">Soft, bright, and playful</p>
-        <div class="expression-strip">
-          <figure class="expression reveal">
-            <img src="assets/her-teal-wink.jpg" alt="Her playful wink portrait" />
-            <figcaption>Playful</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-teal-kiss.jpg" alt="Her cute kiss-face portrait" />
-            <figcaption>Adorable</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-teal-cute.jpg" alt="Her cute smiling portrait" />
-            <figcaption>Sweet</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-teal-smile.jpg" alt="Her smiling portrait" />
-            <figcaption>Peaceful</figcaption>
-          </figure>
-        </div>
-        <p class="expression-label expression-label--second reveal">Graceful, sweet, and mine</p>
-        <div class="expression-strip expression-strip--dark">
-          <figure class="expression reveal">
-            <img src="assets/her-black-wink.jpg" alt="Her wink portrait in a black outfit" />
-            <figcaption>Charming</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-black-peace.jpg" alt="Her peaceful portrait in a black outfit" />
-            <figcaption>Serene</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-black-kiss.jpg" alt="Her kiss-face portrait in a black outfit" />
-            <figcaption>Lovely</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-black-cute.jpg" alt="Her cute portrait in a black outfit" />
-            <figcaption>Precious</figcaption>
-          </figure>
-        </div>
-        <p class="expression-label expression-label--second reveal">Soft pink, soft heart</p>
-        <div class="expression-strip expression-strip--pink">
-          <figure class="expression reveal">
-            <img src="assets/her-pink-peace.jpg" alt="Her peaceful portrait in a pink outfit" />
-            <figcaption>Gentle</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-pink-wink.jpg" alt="Her wink portrait in a pink outfit" />
-            <figcaption>Bright</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-pink-kiss.jpg" alt="Her kiss-face portrait in a pink outfit" />
-            <figcaption>Cute</figcaption>
-          </figure>
-          <figure class="expression reveal">
-            <img src="assets/her-pink-cute.jpg" alt="Her cute portrait in a pink outfit" />
-            <figcaption>Joyful</figcaption>
-          </figure>
-        </div>
-      </section>
 
-      <section class="sweet-memory" aria-label="A sweet memory">
-        <div class="sweet-memory__image reveal">
-          <img src="assets/sweet-kitkat-memory.jpg" alt="KitKat chocolates as a sweet memory" />
-        </div>
-        <div class="sweet-memory__text reveal">
-          <p class="eyebrow">A small sweet thing</p>
-          <h2>Because love also lives in tiny treats.</h2>
-          <p>
-            Not every memory has to be grand. Some are just chocolate, laughter, a shared craving, and a moment that
-            becomes ours.
-          </p>
-        </div>
-      </section>
-
-      <section class="timeline" aria-label="Memories and promises">
-        <div class="timeline__heading reveal">
-          <p class="eyebrow">A few forever things</p>
-          <h2>What this day means to me</h2>
-        </div>
-        <div class="moments">
-          <article class="moment reveal">
-            <span>01</span>
-            <h3>Your smile</h3>
-            <p>The first thing I want to protect, celebrate, and come home to.</p>
-          </article>
-          <article class="moment reveal">
-            <span>02</span>
-            <h3>Our families</h3>
-            <p>Two worlds becoming one blessing, one story, one beginning.</p>
-          </article>
-          <article class="moment reveal">
-            <span>03</span>
-            <h3>Our future</h3>
-            <p>A life of small rituals, big dreams, shared prayers, and quiet loyalty.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="finale">
-        <div class="finale__inner reveal">
-          <p class="eyebrow">From Shivam, with love</p>
-          <h2>This is only the first page. I want to write every next one with you.</h2>
-          <button class="button button--light" type="button" id="playAgain">Replay the reveal</button>
+        <div class="final-message reveal">
+          <p class="eyebrow">From Shivam</p>
+          <h2>This is the first page of our forever.</h2>
+          <button class="button button--light" type="button" id="replay">Lock it again</button>
         </div>
       </section>
     </main>
