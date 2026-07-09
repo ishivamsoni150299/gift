@@ -3,19 +3,22 @@ const gates = {
     answer: "9 november 2025",
     unlock: "meeting",
     success: "You unlocked the day everything quietly began.",
-    soft: "Close, but not that day. Think November, the first time our story started."
+    soft: "Close, Gudiya. I will not make you stuck here.",
+    options: ["4 November 2025", "9 November 2025", "14 November 2025", "9 December 2025", "8 July 2026", "14 June 2026"]
   },
   "said-yes": {
     answer: "14 june 2026",
     unlock: "yes",
     success: "You unlocked the day my future became clearer.",
-    soft: "Not that one. It was in June, and it gave me a reason to dream bigger."
+    soft: "Not that one, Sneha. Here are softer clues.",
+    options: ["9 November 2025", "10 June 2026", "14 June 2026", "17 June 2026", "8 July 2026", "17 July 2026"]
   },
   chocolate: {
     answer: "8 july 2026",
     unlock: "chocolate",
     success: "You unlocked the sweetest little memory.",
-    soft: "Almost. It was in July, and the photo has the red wrapper."
+    soft: "Almost. This memory is sweet, so I will make it easier.",
+    options: ["1 July 2026", "8 July 2026", "14 June 2026", "9 July 2026", "17 July 2026", "9 November 2025"]
   }
 };
 
@@ -95,6 +98,31 @@ function setFeedback(form, message, kind) {
   feedback.classList.add(kind);
 }
 
+function renderOptions(form, gate) {
+  if (form.querySelector(".answer-options")) return;
+
+  const options = document.createElement("div");
+  options.className = "answer-options";
+  options.setAttribute("aria-label", "Choose one answer");
+
+  gate.options.forEach((option) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = option;
+    button.addEventListener("click", () => {
+      form.querySelector("input").value = option;
+      form.requestSubmit();
+    });
+    options.append(button);
+  });
+
+  const help = document.createElement("p");
+  help.className = "help-line";
+  help.innerHTML = 'Still confused? Call Shivam: <a href="tel:9473903051">9473903051</a>';
+
+  form.append(options, help);
+}
+
 document.querySelectorAll("form[data-gate]").forEach((form) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -106,11 +134,19 @@ document.querySelectorAll("form[data-gate]").forEach((form) => {
       setFeedback(form, gate.success, "is-good");
       input.setAttribute("disabled", "true");
       form.querySelector("button").setAttribute("disabled", "true");
+      form.querySelectorAll(".answer-options button").forEach((button) => button.setAttribute("disabled", "true"));
       showStep(gate.unlock);
       return;
     }
 
-    setFeedback(form, gate.soft, "is-soft");
+    const attempts = Number(form.dataset.attempts || "0") + 1;
+    form.dataset.attempts = String(attempts);
+    setFeedback(
+      form,
+      attempts === 1 ? `${gate.soft} Choose from these six memories, or call me if you want my voice.` : "This one is not the key, but the right memory is still here.",
+      "is-soft"
+    );
+    renderOptions(form, gate);
     input.select();
   });
 });
@@ -127,8 +163,11 @@ document.querySelector("#replay")?.addEventListener("click", () => {
 
   document.querySelectorAll("form[data-gate]").forEach((form) => {
     form.reset();
+    form.dataset.attempts = "0";
     form.querySelector("input").removeAttribute("disabled");
     form.querySelector("button").removeAttribute("disabled");
+    form.querySelector(".answer-options")?.remove();
+    form.querySelector(".help-line")?.remove();
     const feedback = form.querySelector(".feedback");
     feedback.textContent = "";
     feedback.classList.remove("is-good", "is-soft");

@@ -11,6 +11,9 @@ Create a digital gift that feels personal, cinematic, and earned. Treat the site
 
 Use these fixed story dates unless the user changes them:
 
+- Fiancee name: Sneha
+- Home name: Gudiya
+- Shivam's help number: 9473903051
 - First meeting: 9 November 2025
 - She said yes: 14 June 2026
 - First chocolate gift: 8 July 2026
@@ -23,6 +26,7 @@ Use the KitKat photo as the first chocolate gift memory. Use the couple image as
 - Do not reveal the whole story on the first screen.
 - Start with a locked gift-box or invitation moment.
 - Ask small questions to unlock memories. Prefer exact-answer gates for meaningful dates.
+- Do not trap the recipient. After one wrong answer, reveal six tappable options and a gentle way to contact Shivam at 9473903051.
 - Keep wrong answers gentle and romantic, not error-like.
 - Reveal one layer at a time: welcome, first meeting, yes moment, chocolate memory, promise, gallery, final message.
 - Preserve suspense by showing hints before answers.
@@ -58,6 +62,8 @@ Write as Shivam speaking to his fiancee:
 - emotionally specific
 - simple enough to read on a phone
 - never cheesy or generic
+- use "Sneha" for direct personal moments
+- use "Gudiya" sparingly for warmer private moments
 
 Prefer short lines like:
 
