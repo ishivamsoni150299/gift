@@ -302,7 +302,24 @@ h2 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(16px, 2.6vw, 34px);
-  margin-top: clamp(38px, 6vw, 74px);
+  margin-top: 20px;
+}
+
+.expression-strip--dark {
+  margin-top: 20px;
+}
+
+.expression-label {
+  margin: clamp(38px, 6vw, 74px) 0 0;
+  color: rgba(37, 23, 27, 0.62);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.expression-label--second {
+  margin-top: clamp(42px, 6vw, 76px);
 }
 
 .expression {
