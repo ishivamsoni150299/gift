@@ -1,11 +1,11 @@
 ---
 name: engagement-gift-experience
-description: Build and refine this project's personalized engagement gift website. Use when creating suspense-based romantic interactions, unlockable memory gates, date-based questions, private love-letter flows, QR gift-box experiences, or photo-led engagement pages for Shivam's fiancee.
+description: Build and refine this project's personalized engagement gift website. Use when creating a simple, cute, playful, photo-led engagement surprise for Shivam's fiancee.
 ---
 
 # Engagement Gift Experience
 
-Create a digital gift that feels personal, cinematic, and earned. Treat the site as a private journey, not a public landing page.
+Create a digital gift that feels personal, cute, light, and playful. Treat the site as a private scrapbook, not a public landing page.
 
 ## Core Story
 
@@ -23,14 +23,12 @@ Use the KitKat photo as the first chocolate gift memory. Use the couple image as
 
 ## Experience Rules
 
-- Do not reveal the whole story on the first screen.
-- Start with a locked gift-box or invitation moment.
-- Ask small questions to unlock memories. Prefer exact-answer gates for meaningful dates.
-- Do not trap the recipient. After one wrong answer, reveal six tappable options and a gentle way to contact Shivam at 9473903051.
-- Keep wrong answers gentle and romantic, not error-like.
-- Reveal one layer at a time: welcome, first meeting, yes moment, chocolate memory, promise, gallery, final message.
-- Preserve suspense by showing hints before answers.
-- Make the final reveal feel like a private letter rather than a marketing CTA.
+- Never use questions, quizzes, date inputs, answer gates, or failure states.
+- Start with one simple tap-to-open moment.
+- Keep every memory available through normal scrolling after the gift opens.
+- Use playful photo interactions that never block progress.
+- Present the dates as sweet scrapbook memories.
+- Make the final section feel like a private note rather than a marketing CTA.
 
 ## UI Direction
 
@@ -47,9 +45,9 @@ Use the KitKat photo as the first chocolate gift memory. Use the couple image as
 For this repository:
 
 1. Keep it static: `index.html`, `styles.css`, `script.js`, and `assets/`.
-2. Store gate answers in JavaScript constants.
+2. Use JavaScript only for lightweight delight such as opening, confetti, and photo notes.
 3. Use local UI state only; do not require sign-in, forms, or analytics.
-4. Add progressive sections with `data-step` or clear class names.
+4. Keep the main journey linear and easy to scroll.
 5. After edits, check for broken image references and conflict markers.
 6. Commit and push to GitHub Pages when the user asks for live updates.
 
@@ -75,8 +73,8 @@ Prefer short lines like:
 
 Before finishing:
 
-- The first screen does not reveal all milestones.
-- At least two memories require answering a question.
+- The first screen has one obvious open action.
+- There are no questions or blocking interactions.
 - The fixed dates are used exactly and consistently.
 - The KitKat memory is tied to 8 July 2026.
 - The engagement date remains 17 July 2026.

@@ -1,363 +1,64 @@
-const gates = {
-  "first-meet": {
-    answer: "9 november 2025",
-    unlock: "meeting",
-    success: "You unlocked the day everything quietly began.",
-    soft: "Close, Gudiya. I will not make you stuck here.",
-    options: ["4 November 2025", "9 November 2025", "14 November 2025", "9 December 2025", "8 July 2026", "14 June 2026"]
-  },
-  "said-yes": {
-    answer: "14 june 2026",
-    unlock: "yes",
-    success: "You unlocked the day my future became clearer.",
-    soft: "Not that one, Sneha. Here are softer clues.",
-    options: ["9 November 2025", "10 June 2026", "14 June 2026", "17 June 2026", "8 July 2026", "17 July 2026"]
-  },
-  chocolate: {
-    answer: "8 july 2026",
-    unlock: "chocolate",
-    success: "You unlocked the sweetest little memory.",
-    soft: "Almost. This memory is sweet, so I will make it easier.",
-    options: ["1 July 2026", "8 July 2026", "14 June 2026", "9 July 2026", "17 July 2026", "9 November 2025"]
-  }
-};
+const giftContent = document.querySelector("#giftContent");
+const openButton = document.querySelector("#openGift");
+const confettiLayer = document.querySelector(".confetti-layer");
+const moodNote = document.querySelector("#moodNote");
 
-const aliases = new Map([
-  ["09 november 2025", "9 november 2025"],
-  ["9 nov 2025", "9 november 2025"],
-  ["09 nov 2025", "9 november 2025"],
-  ["9/11/2025", "9 november 2025"],
-  ["09/11/2025", "9 november 2025"],
-  ["14 jun 2026", "14 june 2026"],
-  ["14/06/2026", "14 june 2026"],
-  ["14-06-2026", "14 june 2026"],
-  ["8 july 2026", "8 july 2026"],
-  ["08 july 2026", "8 july 2026"],
-  ["8 jul 2026", "8 july 2026"],
-  ["08 jul 2026", "8 july 2026"],
-  ["8/7/2026", "8 july 2026"],
-  ["08/07/2026", "8 july 2026"],
-  ["8-7-2026", "8 july 2026"],
-  ["08-07-2026", "8 july 2026"]
-]);
-
-const reveals = document.querySelectorAll(".reveal");
-const progressDots = document.querySelectorAll("[data-progress-dot]");
-const progressRail = document.querySelector(".progress-rail");
-const toast = document.querySelector(".unlock-toast");
-const stepOrder = ["start", "meeting", "yes", "chocolate", "letter", "gallery"];
-const sessionKey = "sneha-gift-progress";
-const promiseSessionKey = "sneha-gift-promise";
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-      }
+      if (entry.isIntersecting) entry.target.classList.add("is-visible");
     });
   },
   { threshold: 0.12 }
 );
 
-reveals.forEach((item) => observer.observe(item));
+document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
 
-function setProgress(id) {
-  let hasReachedTarget = true;
+function celebrate() {
+  const colors = ["#d94b64", "#f7c95c", "#66c9c0", "#9a7bb8", "#ffffff"];
 
-  progressDots.forEach((dot) => {
-    dot.classList.toggle("is-active", hasReachedTarget);
-    if (dot.dataset.progressDot === id) {
-      hasReachedTarget = false;
-    }
-  });
-
-  const progressIndex = stepOrder.indexOf(id);
-  progressRail?.setAttribute("aria-valuenow", String(Math.max(1, progressIndex + 1)));
-}
-
-function saveProgress(id) {
-  try {
-    const current = sessionStorage.getItem(sessionKey) || "start";
-    if (stepOrder.indexOf(id) >= stepOrder.indexOf(current)) {
-      sessionStorage.setItem(sessionKey, id);
-    }
-  } catch {
-    // The gift still works when private browsing blocks storage.
+  for (let index = 0; index < 30; index += 1) {
+    const piece = document.createElement("span");
+    piece.style.setProperty("--x", `${Math.random() * 100}vw`);
+    piece.style.setProperty("--delay", `${Math.random() * 260}ms`);
+    piece.style.setProperty("--spin", `${Math.random() * 540 - 270}deg`);
+    piece.style.setProperty("--color", colors[index % colors.length]);
+    confettiLayer.append(piece);
   }
+
+  window.setTimeout(() => confettiLayer.replaceChildren(), 2200);
 }
 
-function normalizeAnswer(value) {
-  const cleaned = value.trim().toLowerCase().replace(/[,]+/g, "").replace(/\s+/g, " ");
-  return aliases.get(cleaned) || cleaned;
-}
-
-function showStep(id) {
-  const step = document.querySelector(`[data-step="${id}"]`);
-  if (!step) return;
-
-  step.classList.remove("locked");
-  step.classList.add("unlocked");
-  setProgress(id);
-  saveProgress(id);
-
-  if (id === "meeting") {
-    document.body.classList.add("is-celebrating");
-    window.setTimeout(() => document.body.classList.remove("is-celebrating"), 1200);
-  }
+function openGift() {
+  giftContent.classList.remove("is-hidden");
+  giftContent.setAttribute("aria-hidden", "false");
+  openButton.setAttribute("disabled", "true");
+  openButton.querySelector("span:last-child").textContent = "Gift opened";
+  document.body.classList.add("gift-is-open");
+  celebrate();
+  navigator.vibrate?.([24, 36, 24]);
 
   window.setTimeout(() => {
-    step.scrollIntoView({ behavior: "smooth", block: "start" });
-    step.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
-  }, 120);
+    document.querySelector("#story")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 520);
 }
 
-function setFeedback(form, message, kind) {
-  const feedback = form.querySelector(".feedback");
-  feedback.textContent = message;
-  feedback.classList.remove("is-good", "is-soft");
-  feedback.classList.add(kind);
-}
+openButton?.addEventListener("click", openGift);
 
-function showToast(message) {
-  if (!toast) return;
-
-  toast.textContent = message;
-  toast.classList.add("is-visible");
-  window.clearTimeout(showToast.timeout);
-  showToast.timeout = window.setTimeout(() => toast.classList.remove("is-visible"), 2400);
-}
-
-function burstHearts(origin = "50%") {
-  const layer = document.createElement("div");
-  layer.className = "heart-burst";
-  layer.style.left = origin;
-
-  for (let index = 0; index < 10; index += 1) {
-    const heart = document.createElement("span");
-    heart.textContent = "♥";
-    heart.style.setProperty("--x", `${(index - 4.5) * 18}px`);
-    heart.style.setProperty("--delay", `${index * 35}ms`);
-    layer.append(heart);
-  }
-
-  document.body.append(layer);
-  window.setTimeout(() => layer.remove(), 1400);
-}
-
-function renderOptions(form, gate) {
-  if (form.querySelector(".answer-options")) return;
-
-  const options = document.createElement("div");
-  options.className = "answer-options";
-  options.setAttribute("aria-label", "Choose one answer");
-
-  gate.options.forEach((option) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = option;
-    button.addEventListener("click", () => {
-      form.querySelector("input").value = option;
-      form.requestSubmit();
-    });
-    options.append(button);
-  });
-
-  const help = document.createElement("p");
-  help.className = "help-line";
-  help.innerHTML = 'Still confused? Call Shivam: <a href="tel:9473903051">9473903051</a>';
-
-  form.append(options, help);
-}
-
-document.querySelectorAll("form[data-gate]").forEach((form) => {
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const gate = gates[form.dataset.gate];
-    const input = form.querySelector("input");
-    const answer = normalizeAnswer(input.value);
-
-    if (answer === gate.answer) {
-      setFeedback(form, gate.success, "is-good");
-      input.setAttribute("disabled", "true");
-      form.querySelector("button").setAttribute("disabled", "true");
-      form.querySelectorAll(".answer-options button").forEach((button) => button.setAttribute("disabled", "true"));
-      showToast(gate.success);
-      burstHearts();
-      navigator.vibrate?.(35);
-      showStep(gate.unlock);
-      return;
-    }
-
-    const attempts = Number(form.dataset.attempts || "0") + 1;
-    form.dataset.attempts = String(attempts);
-    setFeedback(
-      form,
-      attempts === 1 ? `${gate.soft} Choose from these six memories, or call me if you want my voice.` : "This one is not the key, but the right memory is still here.",
-      "is-soft"
-    );
-    renderOptions(form, gate);
-    input.select();
+document.querySelectorAll(".mood-photo").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".mood-photo").forEach((photo) => photo.classList.remove("is-selected"));
+    button.classList.add("is-selected");
+    moodNote.textContent = button.dataset.note;
+    navigator.vibrate?.(16);
   });
 });
 
-document.querySelectorAll("[data-unlock]").forEach((button) => {
-  button.addEventListener("click", () => showStep(button.dataset.unlock));
-});
-
-document.querySelector("#replay")?.addEventListener("click", () => {
-  document.querySelectorAll("[data-step]").forEach((step) => {
-    step.classList.add("locked");
-    step.classList.remove("unlocked");
-  });
-
-  document.querySelectorAll("form[data-gate]").forEach((form) => {
-    form.reset();
-    form.dataset.attempts = "0";
-    form.querySelector("input").removeAttribute("disabled");
-    form.querySelector("button").removeAttribute("disabled");
-    form.querySelector(".answer-options")?.remove();
-    form.querySelector(".help-line")?.remove();
-    const feedback = form.querySelector(".feedback");
-    feedback.textContent = "";
-    feedback.classList.remove("is-good", "is-soft");
-  });
-
-  setProgress("start");
-  document.body.classList.remove("is-celebrating");
-  document.querySelector("#secretPromise")?.classList.remove("is-visible");
-  document.querySelector("#finalPromise")?.removeAttribute("disabled");
-  document.querySelector("#finalPromise")?.classList.remove("is-complete");
-  document.querySelector("#finalPromise")?.style.setProperty("--hold-progress", "0deg");
-  const promiseLabel = document.querySelector("#finalPromise .hold-promise__copy");
-  if (promiseLabel) promiseLabel.textContent = "Hold for one last promise";
-
-  try {
-    sessionStorage.removeItem(sessionKey);
-    sessionStorage.removeItem(promiseSessionKey);
-  } catch {
-    // Ignore storage restrictions.
-  }
-
+document.querySelector("#playAgain")?.addEventListener("click", () => {
+  giftContent.classList.add("is-hidden");
+  giftContent.setAttribute("aria-hidden", "true");
+  openButton.removeAttribute("disabled");
+  openButton.querySelector("span:last-child").textContent = "Open my gift";
+  document.body.classList.remove("gift-is-open");
   window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-function setupPromiseHold() {
-  const button = document.querySelector("#finalPromise");
-  const promise = document.querySelector("#secretPromise");
-  if (!button || !promise) return;
-
-  const holdDuration = 1700;
-  let startedAt = 0;
-  let animationFrame = 0;
-  let isHolding = false;
-
-  const reset = () => {
-    isHolding = false;
-    window.cancelAnimationFrame(animationFrame);
-    button.classList.remove("is-holding");
-    button.style.setProperty("--hold-progress", "0deg");
-  };
-
-  const complete = () => {
-    isHolding = false;
-    window.cancelAnimationFrame(animationFrame);
-    button.classList.remove("is-holding");
-    button.classList.add("is-complete");
-    button.style.setProperty("--hold-progress", "360deg");
-    button.setAttribute("disabled", "true");
-    button.querySelector(".hold-promise__copy").textContent = "Promise opened";
-    promise.classList.add("is-visible");
-    try {
-      sessionStorage.setItem(promiseSessionKey, "open");
-    } catch {
-      // Ignore storage restrictions.
-    }
-    showToast("One last promise unlocked for Sneha.");
-    burstHearts("50%");
-    navigator.vibrate?.([30, 40, 30]);
-  };
-
-  const tick = (time) => {
-    if (!isHolding) return;
-    const progress = Math.min((time - startedAt) / holdDuration, 1);
-    button.style.setProperty("--hold-progress", `${progress * 360}deg`);
-    if (progress >= 1) {
-      complete();
-      return;
-    }
-    animationFrame = window.requestAnimationFrame(tick);
-  };
-
-  const start = (event) => {
-    if (button.disabled || isHolding || (event.type === "keydown" && !["Enter", " "].includes(event.key))) return;
-    event.preventDefault();
-    isHolding = true;
-    button.classList.add("is-holding");
-    startedAt = performance.now();
-    navigator.vibrate?.(18);
-    animationFrame = window.requestAnimationFrame(tick);
-  };
-
-  const stop = (event) => {
-    if (event.type === "keyup" && !["Enter", " "].includes(event.key)) return;
-    if (isHolding) reset();
-  };
-
-  button.addEventListener("pointerdown", start);
-  button.addEventListener("pointerup", stop);
-  button.addEventListener("pointercancel", stop);
-  button.addEventListener("pointerleave", stop);
-  button.addEventListener("keydown", start);
-  button.addEventListener("keyup", stop);
-  button.addEventListener("contextmenu", (event) => event.preventDefault());
-}
-
-function restoreProgress() {
-  let savedStep = "start";
-  try {
-    savedStep = sessionStorage.getItem(sessionKey) || "start";
-  } catch {
-    savedStep = "start";
-  }
-
-  const savedIndex = stepOrder.indexOf(savedStep);
-  if (savedIndex <= 0) return;
-
-  stepOrder.slice(1, savedIndex + 1).forEach((id) => {
-    const step = document.querySelector(`[data-step="${id}"]`);
-    step?.classList.remove("locked");
-    step?.classList.add("unlocked");
-    step?.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
-  });
-  setProgress(savedStep);
-  showToast("Your place in the gift was saved.");
-  window.setTimeout(() => {
-    document.querySelector(`[data-step="${savedStep}"]`)?.scrollIntoView({ block: "start" });
-  }, 180);
-}
-
-function restorePromise() {
-  let isOpen = false;
-  try {
-    isOpen = sessionStorage.getItem(promiseSessionKey) === "open";
-  } catch {
-    isOpen = false;
-  }
-  if (!isOpen) return;
-
-  const button = document.querySelector("#finalPromise");
-  document.querySelector("#secretPromise")?.classList.add("is-visible");
-  button?.classList.add("is-complete");
-  button?.style.setProperty("--hold-progress", "360deg");
-  button?.setAttribute("disabled", "true");
-  const label = button?.querySelector(".hold-promise__copy");
-  if (label) label.textContent = "Promise opened";
-}
-
-window.addEventListener("load", () => {
-  setProgress("start");
-  document.querySelectorAll(".lock-screen .reveal").forEach((item) => item.classList.add("is-visible"));
-  setupPromiseHold();
-  restoreProgress();
-  restorePromise();
 });

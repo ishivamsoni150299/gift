@@ -3,213 +3,162 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff7f8" />
     <title>For Sneha, My Gudiya</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="unlock-toast" role="status" aria-live="polite"></div>
-    <div class="progress-rail" role="progressbar" aria-label="Gift unlock progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1">
-      <span data-progress-dot="start" class="is-active" aria-hidden="true"></span>
-      <span data-progress-dot="meeting" aria-hidden="true"></span>
-      <span data-progress-dot="yes" aria-hidden="true"></span>
-      <span data-progress-dot="chocolate" aria-hidden="true"></span>
-      <span data-progress-dot="letter" aria-hidden="true"></span>
-      <span data-progress-dot="gallery" aria-hidden="true"></span>
-    </div>
-    <main class="experience">
-      <section class="lock-screen" id="start" aria-labelledby="start-title">
-        <div class="ambient" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
+    <div class="confetti-layer" aria-hidden="true"></div>
 
-        <div class="lock-copy reveal">
-          <p class="eyebrow">A private gift</p>
-          <h1 id="start-title">Sneha, this box opens only for you.</h1>
-          <p>
-            Gudiya, I am not showing everything at once. Some memories deserve suspense, a little smile, and the right
-            answer from your heart.
-          </p>
-          <p class="comfort-line">If one answer slips away, I will give you choices. I will not let you get stuck.</p>
-          <div class="personal-seal" aria-label="Personalized for Sneha">
-            <span>Sneha</span>
-            <small>Gudiya, my forever person</small>
-          </div>
-        </div>
+    <main>
+      <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+        <nav class="tiny-nav" aria-label="Gift details">
+          <span class="monogram">S + S</span>
+          <span>17 July 2026</span>
+        </nav>
 
-        <div class="gift-box reveal" aria-label="Locked digital gift box">
-          <div class="gift-box__glow"></div>
-          <div class="gift-box__lid"></div>
-          <div class="gift-box__sparkles"><span></span><span></span><span></span><span></span></div>
-          <div class="gift-box__ribbon"></div>
-          <div class="gift-box__body">
-            <span>For Sneha</span>
-          </div>
-        </div>
-
-        <form class="gate reveal" data-gate="first-meet" aria-describedby="first-hint">
-          <span class="gate__step">Question 1</span>
-          <label for="firstMeet">When did we meet for the first time?</label>
-          <div class="answer-row">
-            <input id="firstMeet" name="firstMeet" type="text" placeholder="Day Month Year" autocomplete="off" />
-            <button type="submit">Unlock</button>
-          </div>
-          <p class="hint" id="first-hint">Hint: it was in November, and my life quietly changed.</p>
-          <p class="feedback" role="status"></p>
-        </form>
-      </section>
-
-      <section class="chapter chapter--meeting locked" id="meeting" data-step="meeting" aria-labelledby="meeting-title">
-        <div class="chapter__text reveal">
-          <p class="eyebrow">Unlocked memory</p>
-          <h2 id="meeting-title"><span class="date-kicker">9</span> November 2025</h2>
-          <p>
-            Sneha, this was the day I met you for the first time. I did not know how much my future had shifted, but
-            something in me became softer from that day.
-          </p>
-        </div>
-        <div class="chapter__image reveal">
-          <img src="assets/her-portrait-pink.jpg" alt="Her portrait in pink" />
-        </div>
-
-        <form class="gate gate--inline reveal" data-gate="said-yes" aria-describedby="yes-hint">
-          <span class="gate__step">Question 2</span>
-          <label for="saidYes">On which date did you say yes?</label>
-          <div class="answer-row">
-            <input id="saidYes" name="saidYes" type="text" placeholder="Day Month Year" autocomplete="off" />
-            <button type="submit">Continue</button>
-          </div>
-          <p class="hint" id="yes-hint">Hint: it was in June, before our engagement month began.</p>
-          <p class="feedback" role="status"></p>
-        </form>
-      </section>
-
-      <section class="chapter chapter--yes locked" id="yes" data-step="yes" aria-labelledby="yes-title">
-        <div class="split-photo reveal">
-          <img src="assets/couple-engagement.jpg" alt="Engagement portrait of the couple" />
-        </div>
-        <div class="chapter__text reveal">
-          <p class="eyebrow">The day my answer became us</p>
-          <h2 id="yes-title"><span class="date-kicker">14</span> June 2026</h2>
-          <p>
-            Gudiya, the day you said yes, the future stopped feeling like a dream and started feeling like a promise
-            with your name on it.
-          </p>
-        </div>
-
-        <form class="gate gate--inline reveal" data-gate="chocolate" aria-describedby="chocolate-hint">
-          <span class="gate__step">Question 3</span>
-          <label for="chocolateDate">When did I receive my first chocolate gift?</label>
-          <div class="answer-row">
-            <input id="chocolateDate" name="chocolateDate" type="text" placeholder="Day Month Year" autocomplete="off" />
-            <button type="submit">Open memory</button>
-          </div>
-          <p class="hint" id="chocolate-hint">Hint: it was very close to today, and the wrapper was red.</p>
-          <p class="feedback" role="status"></p>
-        </form>
-      </section>
-
-      <section class="sweet-reveal locked" id="chocolate" data-step="chocolate" aria-labelledby="chocolate-title">
-        <div class="sweet-reveal__image reveal">
-          <img src="assets/sweet-kitkat-memory.jpg" alt="KitKat chocolates from the first chocolate gift" />
-        </div>
-        <div class="sweet-reveal__text reveal">
-          <p class="eyebrow">First chocolate gift</p>
-          <h2 id="chocolate-title"><span class="date-kicker">8</span> July 2026</h2>
-          <p>
-            This one was not expensive. It was sweet because it was from you. A KitKat became a memory because Sneha's
-            love was inside that moment.
-          </p>
-          <button class="button" type="button" data-unlock="letter">Open the letter</button>
-        </div>
-      </section>
-
-      <section class="letter locked" id="letter" data-step="letter" aria-labelledby="letter-title">
-        <div class="letter__paper reveal">
-          <p class="script">My Sneha,</p>
-          <h2 id="letter-title">Now I can show you what I was hiding.</h2>
-          <p>
-            I did not want this gift to show everything at once, because our story did not happen all at once. It grew
-            from a first meeting, to your yes, to small sweet memories, to this engagement day.
-          </p>
-          <p>
-            On 17 July 2026, I am not only celebrating an engagement. I am celebrating Gudiya, the woman who made my ordinary
-            life feel chosen. I promise to respect you, protect your peace, listen with patience, and keep choosing you
-            even on the days when love needs effort.
-          </p>
-          <p>
-            You are my calm, my favorite person, and the future I want to come home to.
-          </p>
-          <div class="memory-keepsake" aria-label="Our story in four moments">
-            <div><strong>09.11.25</strong><span>We met</span></div>
-            <div><strong>14.06.26</strong><span>You said yes</span></div>
-            <div><strong>08.07.26</strong><span>Our sweet memory</span></div>
-            <div><strong>17.07.26</strong><span>Our engagement</span></div>
-          </div>
-          <button class="button" type="button" data-unlock="gallery">See what I saved</button>
-        </div>
-      </section>
-
-      <section class="gallery locked" id="gallery" data-step="gallery" aria-labelledby="gallery-title">
-        <div class="gallery__intro reveal">
-          <p class="eyebrow">17 July 2026</p>
-          <h2 id="gallery-title">The gallery I kept for the end.</h2>
-          <p>Every expression. Every little mood. Every version of Sneha that makes me smile.</p>
-        </div>
-
-        <div class="memory-grid reveal">
-          <figure class="memory-grid__wide">
-            <img src="assets/couple-engagement.jpg" alt="Engagement portrait of the couple" />
-            <figcaption>Us, beginning the next chapter.</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/her-portrait-pink.jpg" alt="Her portrait in pink" />
-            <figcaption>My calm.</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/her-portrait-black.jpg" alt="Her portrait in black" />
-            <figcaption>My blessing.</figcaption>
-          </figure>
-        </div>
-
-        <div class="photo-rows reveal" aria-label="Expression gallery">
-          <img src="assets/her-teal-wink.jpg" alt="Her teal wink portrait" />
-          <img src="assets/her-teal-kiss.jpg" alt="Her teal kiss portrait" />
-          <img src="assets/her-teal-cute.jpg" alt="Her teal cute portrait" />
-          <img src="assets/her-teal-smile.jpg" alt="Her teal smile portrait" />
-          <img src="assets/her-black-wink.jpg" alt="Her black outfit wink portrait" />
-          <img src="assets/her-black-peace.jpg" alt="Her black outfit peaceful portrait" />
-          <img src="assets/her-black-kiss.jpg" alt="Her black outfit kiss portrait" />
-          <img src="assets/her-black-cute.jpg" alt="Her black outfit cute portrait" />
-          <img src="assets/her-pink-peace.jpg" alt="Her pink peaceful portrait" />
-          <img src="assets/her-pink-wink.jpg" alt="Her pink wink portrait" />
-          <img src="assets/her-pink-kiss.jpg" alt="Her pink kiss portrait" />
-          <img src="assets/her-pink-cute.jpg" alt="Her pink cute portrait" />
-        </div>
-
-        <div class="final-message reveal">
-          <p class="eyebrow">From Shivam</p>
-          <h2>This is the first page of our forever.</h2>
-          <p class="final-message__copy">
-            Sneha, if this page made you smile even once, then the gift has already done what my heart wanted.
-          </p>
-          <button class="hold-promise" type="button" id="finalPromise" aria-describedby="promiseHint" style="--hold-progress: 0deg">
-            <span class="hold-promise__ring" aria-hidden="true"></span>
-            <span class="hold-promise__copy">Hold for one last promise</span>
+        <div class="welcome__copy reveal is-visible">
+          <p class="eyebrow">For my Gudiya</p>
+          <h1 id="welcome-title">A tiny world made for Sneha.</h1>
+          <p class="welcome__line">Some memories, all her cute moods, and one very happy Shivam.</p>
+          <button class="open-button" type="button" id="openGift">
+            <span class="open-button__bow" aria-hidden="true"></span>
+            <span>Open my gift</span>
           </button>
-          <p class="promise-hint" id="promiseHint">Keep holding until the heart is full.</p>
-          <p class="secret-promise" id="secretPromise" aria-live="polite">
-            Gudiya, I will not only love you on special days. I will love you in ordinary mornings, tired evenings,
-            silent moments, and every tomorrow we get to call ours.
-          </p>
-          <button class="button button--light" type="button" id="replay">Lock it again</button>
         </div>
+
+        <div class="welcome__photos reveal is-visible" aria-label="Photos of Sneha and Shivam">
+          <figure class="hero-photo">
+            <img src="assets/couple-engagement.jpg" alt="Sneha and Shivam together" />
+          </figure>
+          <figure class="mini-photo mini-photo--one">
+            <img src="assets/her-teal-wink.jpg" alt="Sneha winking" />
+          </figure>
+          <figure class="mini-photo mini-photo--two">
+            <img src="assets/her-pink-peace.jpg" alt="Sneha smiling peacefully" />
+          </figure>
+          <span class="doodle doodle--heart" aria-hidden="true">&#9829;</span>
+          <span class="doodle doodle--spark" aria-hidden="true">&#10022;</span>
+        </div>
+
+        <p class="scroll-note">One little tap. No questions, promise.</p>
       </section>
+
+      <div class="gift-content is-hidden" id="giftContent" aria-hidden="true">
+        <section class="story section" id="story" aria-labelledby="story-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Our little story</p>
+            <h2 id="story-title">Four dates I keep close.</h2>
+          </div>
+
+          <div class="story-strip">
+            <article class="story-card reveal">
+              <div class="story-card__photo"><img src="assets/her-portrait-pink.jpg" alt="Sneha in pink" /></div>
+              <span class="story-card__number">01</span>
+              <time datetime="2025-11-09">9 November 2025</time>
+              <h3>The day we met</h3>
+              <p>I met you, and ordinary days quietly started feeling different.</p>
+            </article>
+
+            <article class="story-card story-card--yellow reveal">
+              <div class="story-card__photo"><img src="assets/couple-engagement.jpg" alt="Sneha and Shivam together" /></div>
+              <span class="story-card__number">02</span>
+              <time datetime="2026-06-14">14 June 2026</time>
+              <h3>The happiest yes</h3>
+              <p>You said yes, and suddenly my favorite dream had your name on it.</p>
+            </article>
+
+            <article class="story-card story-card--aqua reveal">
+              <div class="story-card__photo"><img src="assets/sweet-kitkat-memory.jpg" alt="The first KitKat chocolate gift" /></div>
+              <span class="story-card__number">03</span>
+              <time datetime="2026-07-08">8 July 2026</time>
+              <h3>Our sweet little memory</h3>
+              <p>A KitKat became special because it came from you.</p>
+            </article>
+
+            <article class="story-card story-card--lavender reveal">
+              <div class="story-card__photo"><img src="assets/her-portrait-black.jpg" alt="Sneha in black" /></div>
+              <span class="story-card__number">04</span>
+              <time datetime="2026-07-17">17 July 2026</time>
+              <h3>Our engagement</h3>
+              <p>The day our little story begins its biggest chapter.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="moods section" aria-labelledby="moods-title">
+          <div class="section-heading section-heading--center reveal">
+            <p class="eyebrow">The many moods of Sneha</p>
+            <h2 id="moods-title">Every version is my favorite.</h2>
+            <p>Tap any photo for a tiny note from me.</p>
+          </div>
+
+          <div class="mood-grid reveal" aria-label="Sneha's expression gallery">
+            <button class="mood-photo is-selected" type="button" data-note="That wink could fix my whole day.">
+              <img src="assets/her-teal-wink.jpg" alt="Sneha winking in teal" />
+            </button>
+            <button class="mood-photo" type="button" data-note="My cutest flying kiss, safely saved forever.">
+              <img src="assets/her-teal-kiss.jpg" alt="Sneha making a kiss face in teal" />
+            </button>
+            <button class="mood-photo" type="button" data-note="This face makes it impossible to stay serious.">
+              <img src="assets/her-teal-cute.jpg" alt="Sneha making a cute face in teal" />
+            </button>
+            <button class="mood-photo" type="button" data-note="This smile is where I want to live.">
+              <img src="assets/her-teal-smile.jpg" alt="Sneha smiling in teal" />
+            </button>
+            <button class="mood-photo" type="button" data-note="My beautiful Gudiya, being effortlessly cool.">
+              <img src="assets/her-black-wink.jpg" alt="Sneha winking in black" />
+            </button>
+            <button class="mood-photo" type="button" data-note="Soft, peaceful, and completely lovely.">
+              <img src="assets/her-black-peace.jpg" alt="Sneha with a peaceful expression in black" />
+            </button>
+            <button class="mood-photo" type="button" data-note="A tiny kiss for the luckiest man.">
+              <img src="assets/her-pink-kiss.jpg" alt="Sneha making a kiss face in pink" />
+            </button>
+            <button class="mood-photo" type="button" data-note="The face I will happily tease forever.">
+              <img src="assets/her-pink-cute.jpg" alt="Sneha making a cute face in pink" />
+            </button>
+          </div>
+          <p class="mood-note" id="moodNote" role="status">That wink could fix my whole day.</p>
+        </section>
+
+        <section class="love-note section" aria-labelledby="note-title">
+          <div class="love-note__photo reveal">
+            <img src="assets/her-portrait-pink.jpg" alt="Portrait of Sneha" />
+            <span class="tape" aria-hidden="true"></span>
+          </div>
+          <div class="love-note__paper reveal">
+            <p class="eyebrow">A small note from Shivam</p>
+            <h2 id="note-title">My Sneha,</h2>
+            <p>
+              You make my ordinary days feel chosen. I love your smile, your little moods, your kindness, and the calm
+              I feel when I imagine my future with you.
+            </p>
+            <p>
+              On 17 July, I am not just celebrating our engagement. I am celebrating the person I want beside me for
+              every silly moment, quiet evening, big dream, and normal morning still waiting for us.
+            </p>
+            <p class="signature">Always yours,<br /><strong>Shivam</strong></p>
+          </div>
+        </section>
+
+        <section class="finale" aria-labelledby="finale-title">
+          <img src="assets/couple-engagement.jpg" alt="Sneha and Shivam beginning their next chapter" />
+          <div class="finale__shade" aria-hidden="true"></div>
+          <div class="finale__copy reveal">
+            <p class="eyebrow">17 July 2026</p>
+            <h2 id="finale-title">Sneha &amp; Shivam</h2>
+            <p>One sweet beginning. A lifetime of little adventures.</p>
+            <button class="again-button" type="button" id="playAgain">Open it again</button>
+          </div>
+        </section>
+      </div>
     </main>
 
     <script src="script.js"></script>
