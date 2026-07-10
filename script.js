@@ -23,6 +23,10 @@ function celebrate() {
     piece.style.setProperty("--delay", `${Math.random() * 260}ms`);
     piece.style.setProperty("--spin", `${Math.random() * 540 - 270}deg`);
     piece.style.setProperty("--color", colors[index % colors.length]);
+    if (index % 6 === 0) {
+      piece.classList.add("is-heart");
+      piece.textContent = "\u2665";
+    }
     confettiLayer.append(piece);
   }
 
@@ -47,9 +51,31 @@ openButton?.addEventListener("click", openGift);
 
 document.querySelectorAll(".mood-photo").forEach((button) => {
   button.addEventListener("click", () => {
-    document.querySelectorAll(".mood-photo").forEach((photo) => photo.classList.remove("is-selected"));
+    document.querySelectorAll(".mood-photo").forEach((photo) => {
+      photo.classList.remove("is-selected");
+      photo.setAttribute("aria-pressed", "false");
+    });
     button.classList.add("is-selected");
+    button.setAttribute("aria-pressed", "true");
     moodNote.textContent = button.dataset.note;
+    moodNote.classList.remove("is-popping");
+    window.requestAnimationFrame(() => moodNote.classList.add("is-popping"));
+    navigator.vibrate?.(16);
+  });
+});
+
+document.querySelectorAll(".tiny-note").forEach((button) => {
+  button.addEventListener("click", () => {
+    const reply = document.querySelector("#tinyReply");
+    document.querySelectorAll(".tiny-note").forEach((note) => {
+      note.classList.remove("is-open");
+      note.setAttribute("aria-pressed", "false");
+    });
+    button.classList.add("is-open");
+    button.setAttribute("aria-pressed", "true");
+    reply.textContent = button.dataset.message;
+    reply.classList.remove("is-popping");
+    window.requestAnimationFrame(() => reply.classList.add("is-popping"));
     navigator.vibrate?.(16);
   });
 });

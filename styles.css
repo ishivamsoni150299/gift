@@ -267,6 +267,10 @@ p {
   animation: giftOpen 600ms ease both;
 }
 
+.gift-is-open .welcome__photos {
+  animation: photoHappy 620ms cubic-bezier(0.2, 0.85, 0.25, 1.2);
+}
+
 .section {
   padding: clamp(76px, 10vw, 136px) clamp(20px, 7vw, 108px);
 }
@@ -320,6 +324,18 @@ p {
 
 .story-card:hover {
   transform: translateY(-6px) rotate(0);
+}
+
+.story-card:nth-child(2).is-visible {
+  transition-delay: 70ms;
+}
+
+.story-card:nth-child(3).is-visible {
+  transition-delay: 140ms;
+}
+
+.story-card:nth-child(4).is-visible {
+  transition-delay: 210ms;
 }
 
 .story-card--yellow {
@@ -424,6 +440,106 @@ p {
   color: var(--pink);
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(1.35rem, 2.4vw, 2.2rem);
+  font-weight: 700;
+  text-align: center;
+}
+
+.mood-note.is-popping,
+.tiny-reply.is-popping {
+  animation: notePop 360ms ease;
+}
+
+.tiny-things {
+  background: #fff;
+}
+
+.tiny-notes {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+}
+
+.tiny-note {
+  min-width: 0;
+  min-height: 190px;
+  display: grid;
+  gap: 8px;
+  place-content: center;
+  padding: 20px 14px;
+  border: 1px solid rgba(45, 32, 37, 0.1);
+  border-radius: 7px;
+  color: var(--ink);
+  background: #fff0f3;
+  box-shadow: 0 12px 30px rgba(77, 39, 51, 0.08);
+  text-align: center;
+  cursor: pointer;
+  transform: rotate(-1deg);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tiny-note:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.tiny-note--yellow {
+  background: #fff8da;
+}
+
+.tiny-note--aqua {
+  background: #e6faf7;
+}
+
+.tiny-note--lavender {
+  background: #f1ebf8;
+}
+
+.tiny-note--white {
+  background: #fffaf2;
+}
+
+.tiny-note > span {
+  color: var(--pink);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.tiny-note strong {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+}
+
+.tiny-note small {
+  color: rgba(45, 32, 37, 0.46);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tiny-note:hover,
+.tiny-note.is-open {
+  z-index: 2;
+  box-shadow: 0 18px 40px rgba(217, 75, 100, 0.16);
+  transform: translateY(-8px) rotate(0) scale(1.02);
+}
+
+.tiny-note.is-open small {
+  color: var(--pink);
+  font-size: 0;
+}
+
+.tiny-note.is-open small::after {
+  content: "kept close";
+  font-size: 0.68rem;
+}
+
+.tiny-reply {
+  min-height: 70px;
+  max-width: 760px;
+  margin: 42px auto 0;
+  color: var(--pink);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.35rem, 2.5vw, 2.25rem);
   font-weight: 700;
   text-align: center;
 }
@@ -560,6 +676,14 @@ p {
   animation: confettiFall 1900ms cubic-bezier(0.2, 0.7, 0.3, 1) var(--delay) forwards;
 }
 
+.confetti-layer span.is-heart {
+  width: auto;
+  height: auto;
+  color: var(--color);
+  background: transparent;
+  font-size: 1.35rem;
+}
+
 @keyframes bob {
   0%,
   100% {
@@ -578,6 +702,18 @@ p {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes photoHappy {
+  40% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+@keyframes notePop {
+  50% {
+    transform: translateY(-5px) scale(1.02);
   }
 }
 
@@ -605,6 +741,10 @@ p {
   .mood-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
+  }
+
+  .tiny-notes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -700,6 +840,20 @@ p {
   .mood-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
+  }
+
+  .tiny-notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .tiny-note {
+    min-height: 148px;
+  }
+
+  .tiny-note:last-child {
+    grid-column: 1 / -1;
+    min-height: 128px;
   }
 
   .love-note {
