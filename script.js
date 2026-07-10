@@ -43,6 +43,7 @@ const aliases = new Map([
 
 const reveals = document.querySelectorAll(".reveal");
 const progressDots = document.querySelectorAll("[data-progress-dot]");
+const toast = document.querySelector(".unlock-toast");
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -98,6 +99,32 @@ function setFeedback(form, message, kind) {
   feedback.classList.add(kind);
 }
 
+function showToast(message) {
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  window.clearTimeout(showToast.timeout);
+  showToast.timeout = window.setTimeout(() => toast.classList.remove("is-visible"), 2400);
+}
+
+function burstHearts(origin = "50%") {
+  const layer = document.createElement("div");
+  layer.className = "heart-burst";
+  layer.style.left = origin;
+
+  for (let index = 0; index < 10; index += 1) {
+    const heart = document.createElement("span");
+    heart.textContent = "♥";
+    heart.style.setProperty("--x", `${(index - 4.5) * 18}px`);
+    heart.style.setProperty("--delay", `${index * 35}ms`);
+    layer.append(heart);
+  }
+
+  document.body.append(layer);
+  window.setTimeout(() => layer.remove(), 1400);
+}
+
 function renderOptions(form, gate) {
   if (form.querySelector(".answer-options")) return;
 
@@ -135,6 +162,9 @@ document.querySelectorAll("form[data-gate]").forEach((form) => {
       input.setAttribute("disabled", "true");
       form.querySelector("button").setAttribute("disabled", "true");
       form.querySelectorAll(".answer-options button").forEach((button) => button.setAttribute("disabled", "true"));
+      showToast(gate.success);
+      burstHearts();
+      navigator.vibrate?.(35);
       showStep(gate.unlock);
       return;
     }
@@ -177,6 +207,15 @@ document.querySelector("#replay")?.addEventListener("click", () => {
   document.body.classList.remove("is-celebrating");
 
   window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.querySelector("#finalPromise")?.addEventListener("click", () => {
+  const promise = document.querySelector("#secretPromise");
+  promise?.classList.add("is-visible");
+  document.querySelector("#finalPromise")?.setAttribute("disabled", "true");
+  showToast("One last promise unlocked for Sneha.");
+  burstHearts("50%");
+  navigator.vibrate?.([30, 40, 30]);
 });
 
 window.addEventListener("load", () => {

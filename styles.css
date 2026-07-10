@@ -53,6 +53,50 @@ img {
   width: 100%;
 }
 
+.unlock-toast {
+  position: fixed;
+  left: 50%;
+  top: 18px;
+  z-index: 40;
+  max-width: min(92vw, 520px);
+  padding: 13px 18px;
+  border: 1px solid rgba(255, 250, 244, 0.24);
+  border-radius: 999px;
+  background: rgba(33, 19, 23, 0.78);
+  color: #fffaf4;
+  font-size: 0.94rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  box-shadow: 0 18px 54px rgba(33, 19, 23, 0.22);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -18px) scale(0.96);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.unlock-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.heart-burst {
+  position: fixed;
+  left: 50%;
+  top: 54%;
+  z-index: 35;
+  pointer-events: none;
+}
+
+.heart-burst span {
+  position: absolute;
+  color: #f7b4bf;
+  font-size: 1.3rem;
+  text-shadow: 0 10px 24px rgba(93, 29, 50, 0.24);
+  animation: heartFloat 1200ms ease-out var(--delay) forwards;
+}
+
 .progress-rail {
   position: fixed;
   right: 18px;
@@ -682,6 +726,32 @@ figcaption {
   color: rgba(255, 250, 244, 0.86);
 }
 
+.final-message__copy {
+  margin-bottom: 18px;
+}
+
+.secret-promise {
+  max-height: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: max-height 650ms ease, opacity 450ms ease, transform 450ms ease, margin 450ms ease;
+}
+
+.secret-promise.is-visible {
+  max-height: 260px;
+  margin: 18px auto 20px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#finalPromise:disabled {
+  opacity: 0.72;
+  cursor: default;
+  transform: none;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -803,7 +873,28 @@ figcaption {
   }
 }
 
+@keyframes heartFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), -118px) scale(1.4) rotate(18deg);
+  }
+}
+
 @media (max-width: 860px) {
+  .unlock-toast {
+    top: 12px;
+    border-radius: 18px;
+  }
+
   .progress-rail {
     top: auto;
     right: auto;

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="unlock-toast" role="status" aria-live="polite"></div>
     <div class="progress-rail" aria-label="Gift unlock progress">
       <span data-progress-dot="start" class="is-active"></span>
       <span data-progress-dot="meeting"></span>
@@ -188,6 +189,14 @@
         <div class="final-message reveal">
           <p class="eyebrow">From Shivam</p>
           <h2>This is the first page of our forever.</h2>
+          <p class="final-message__copy">
+            Sneha, if this page made you smile even once, then the gift has already done what my heart wanted.
+          </p>
+          <button class="button button--light" type="button" id="finalPromise">One last promise</button>
+          <p class="secret-promise" id="secretPromise">
+            Gudiya, I will not only love you on special days. I will love you in ordinary mornings, tired evenings,
+            silent moments, and every tomorrow we get to call ours.
+          </p>
           <button class="button button--light" type="button" id="replay">Lock it again</button>
         </div>
       </section>
