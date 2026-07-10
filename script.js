@@ -43,7 +43,11 @@ const aliases = new Map([
 
 const reveals = document.querySelectorAll(".reveal");
 const progressDots = document.querySelectorAll("[data-progress-dot]");
+const progressRail = document.querySelector(".progress-rail");
 const toast = document.querySelector(".unlock-toast");
+const stepOrder = ["start", "meeting", "yes", "chocolate", "letter", "gallery"];
+const sessionKey = "sneha-gift-progress";
+const promiseSessionKey = "sneha-gift-promise";
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -66,6 +70,20 @@ function setProgress(id) {
       hasReachedTarget = false;
     }
   });
+
+  const progressIndex = stepOrder.indexOf(id);
+  progressRail?.setAttribute("aria-valuenow", String(Math.max(1, progressIndex + 1)));
+}
+
+function saveProgress(id) {
+  try {
+    const current = sessionStorage.getItem(sessionKey) || "start";
+    if (stepOrder.indexOf(id) >= stepOrder.indexOf(current)) {
+      sessionStorage.setItem(sessionKey, id);
+    }
+  } catch {
+    // The gift still works when private browsing blocks storage.
+  }
 }
 
 function normalizeAnswer(value) {
@@ -80,6 +98,7 @@ function showStep(id) {
   step.classList.remove("locked");
   step.classList.add("unlocked");
   setProgress(id);
+  saveProgress(id);
 
   if (id === "meeting") {
     document.body.classList.add("is-celebrating");
@@ -205,20 +224,140 @@ document.querySelector("#replay")?.addEventListener("click", () => {
 
   setProgress("start");
   document.body.classList.remove("is-celebrating");
+  document.querySelector("#secretPromise")?.classList.remove("is-visible");
+  document.querySelector("#finalPromise")?.removeAttribute("disabled");
+  document.querySelector("#finalPromise")?.classList.remove("is-complete");
+  document.querySelector("#finalPromise")?.style.setProperty("--hold-progress", "0deg");
+  const promiseLabel = document.querySelector("#finalPromise .hold-promise__copy");
+  if (promiseLabel) promiseLabel.textContent = "Hold for one last promise";
+
+  try {
+    sessionStorage.removeItem(sessionKey);
+    sessionStorage.removeItem(promiseSessionKey);
+  } catch {
+    // Ignore storage restrictions.
+  }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-document.querySelector("#finalPromise")?.addEventListener("click", () => {
+function setupPromiseHold() {
+  const button = document.querySelector("#finalPromise");
   const promise = document.querySelector("#secretPromise");
-  promise?.classList.add("is-visible");
-  document.querySelector("#finalPromise")?.setAttribute("disabled", "true");
-  showToast("One last promise unlocked for Sneha.");
-  burstHearts("50%");
-  navigator.vibrate?.([30, 40, 30]);
-});
+  if (!button || !promise) return;
+
+  const holdDuration = 1700;
+  let startedAt = 0;
+  let animationFrame = 0;
+  let isHolding = false;
+
+  const reset = () => {
+    isHolding = false;
+    window.cancelAnimationFrame(animationFrame);
+    button.classList.remove("is-holding");
+    button.style.setProperty("--hold-progress", "0deg");
+  };
+
+  const complete = () => {
+    isHolding = false;
+    window.cancelAnimationFrame(animationFrame);
+    button.classList.remove("is-holding");
+    button.classList.add("is-complete");
+    button.style.setProperty("--hold-progress", "360deg");
+    button.setAttribute("disabled", "true");
+    button.querySelector(".hold-promise__copy").textContent = "Promise opened";
+    promise.classList.add("is-visible");
+    try {
+      sessionStorage.setItem(promiseSessionKey, "open");
+    } catch {
+      // Ignore storage restrictions.
+    }
+    showToast("One last promise unlocked for Sneha.");
+    burstHearts("50%");
+    navigator.vibrate?.([30, 40, 30]);
+  };
+
+  const tick = (time) => {
+    if (!isHolding) return;
+    const progress = Math.min((time - startedAt) / holdDuration, 1);
+    button.style.setProperty("--hold-progress", `${progress * 360}deg`);
+    if (progress >= 1) {
+      complete();
+      return;
+    }
+    animationFrame = window.requestAnimationFrame(tick);
+  };
+
+  const start = (event) => {
+    if (button.disabled || isHolding || (event.type === "keydown" && !["Enter", " "].includes(event.key))) return;
+    event.preventDefault();
+    isHolding = true;
+    button.classList.add("is-holding");
+    startedAt = performance.now();
+    navigator.vibrate?.(18);
+    animationFrame = window.requestAnimationFrame(tick);
+  };
+
+  const stop = (event) => {
+    if (event.type === "keyup" && !["Enter", " "].includes(event.key)) return;
+    if (isHolding) reset();
+  };
+
+  button.addEventListener("pointerdown", start);
+  button.addEventListener("pointerup", stop);
+  button.addEventListener("pointercancel", stop);
+  button.addEventListener("pointerleave", stop);
+  button.addEventListener("keydown", start);
+  button.addEventListener("keyup", stop);
+  button.addEventListener("contextmenu", (event) => event.preventDefault());
+}
+
+function restoreProgress() {
+  let savedStep = "start";
+  try {
+    savedStep = sessionStorage.getItem(sessionKey) || "start";
+  } catch {
+    savedStep = "start";
+  }
+
+  const savedIndex = stepOrder.indexOf(savedStep);
+  if (savedIndex <= 0) return;
+
+  stepOrder.slice(1, savedIndex + 1).forEach((id) => {
+    const step = document.querySelector(`[data-step="${id}"]`);
+    step?.classList.remove("locked");
+    step?.classList.add("unlocked");
+    step?.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
+  });
+  setProgress(savedStep);
+  showToast("Your place in the gift was saved.");
+  window.setTimeout(() => {
+    document.querySelector(`[data-step="${savedStep}"]`)?.scrollIntoView({ block: "start" });
+  }, 180);
+}
+
+function restorePromise() {
+  let isOpen = false;
+  try {
+    isOpen = sessionStorage.getItem(promiseSessionKey) === "open";
+  } catch {
+    isOpen = false;
+  }
+  if (!isOpen) return;
+
+  const button = document.querySelector("#finalPromise");
+  document.querySelector("#secretPromise")?.classList.add("is-visible");
+  button?.classList.add("is-complete");
+  button?.style.setProperty("--hold-progress", "360deg");
+  button?.setAttribute("disabled", "true");
+  const label = button?.querySelector(".hold-promise__copy");
+  if (label) label.textContent = "Promise opened";
+}
 
 window.addEventListener("load", () => {
   setProgress("start");
   document.querySelectorAll(".lock-screen .reveal").forEach((item) => item.classList.add("is-visible"));
+  setupPromiseHold();
+  restoreProgress();
+  restorePromise();
 });

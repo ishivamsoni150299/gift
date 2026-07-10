@@ -14,13 +14,13 @@
   </head>
   <body>
     <div class="unlock-toast" role="status" aria-live="polite"></div>
-    <div class="progress-rail" aria-label="Gift unlock progress">
-      <span data-progress-dot="start" class="is-active"></span>
-      <span data-progress-dot="meeting"></span>
-      <span data-progress-dot="yes"></span>
-      <span data-progress-dot="chocolate"></span>
-      <span data-progress-dot="letter"></span>
-      <span data-progress-dot="gallery"></span>
+    <div class="progress-rail" role="progressbar" aria-label="Gift unlock progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1">
+      <span data-progress-dot="start" class="is-active" aria-hidden="true"></span>
+      <span data-progress-dot="meeting" aria-hidden="true"></span>
+      <span data-progress-dot="yes" aria-hidden="true"></span>
+      <span data-progress-dot="chocolate" aria-hidden="true"></span>
+      <span data-progress-dot="letter" aria-hidden="true"></span>
+      <span data-progress-dot="gallery" aria-hidden="true"></span>
     </div>
     <main class="experience">
       <section class="lock-screen" id="start" aria-labelledby="start-title">
@@ -145,6 +145,12 @@
           <p>
             You are my calm, my favorite person, and the future I want to come home to.
           </p>
+          <div class="memory-keepsake" aria-label="Our story in four moments">
+            <div><strong>09.11.25</strong><span>We met</span></div>
+            <div><strong>14.06.26</strong><span>You said yes</span></div>
+            <div><strong>08.07.26</strong><span>Our sweet memory</span></div>
+            <div><strong>17.07.26</strong><span>Our engagement</span></div>
+          </div>
           <button class="button" type="button" data-unlock="gallery">See what I saved</button>
         </div>
       </section>
@@ -192,8 +198,12 @@
           <p class="final-message__copy">
             Sneha, if this page made you smile even once, then the gift has already done what my heart wanted.
           </p>
-          <button class="button button--light" type="button" id="finalPromise">One last promise</button>
-          <p class="secret-promise" id="secretPromise">
+          <button class="hold-promise" type="button" id="finalPromise" aria-describedby="promiseHint" style="--hold-progress: 0deg">
+            <span class="hold-promise__ring" aria-hidden="true"></span>
+            <span class="hold-promise__copy">Hold for one last promise</span>
+          </button>
+          <p class="promise-hint" id="promiseHint">Keep holding until the heart is full.</p>
+          <p class="secret-promise" id="secretPromise" aria-live="polite">
             Gudiya, I will not only love you on special days. I will love you in ordinary mornings, tired evenings,
             silent moments, and every tomorrow we get to call ours.
           </p>
