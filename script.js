@@ -3,6 +3,11 @@ const openButton = document.querySelector("#openGift");
 const confettiLayer = document.querySelector(".confetti-layer");
 const moodNote = document.querySelector("#moodNote");
 
+const route = new URL(window.location.href);
+if (route.searchParams.get("from") === "for-sneha") {
+  window.history.replaceState({}, "", "./for-sneha/");
+}
+
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -37,7 +42,7 @@ function openGift() {
   giftContent.classList.remove("is-hidden");
   giftContent.setAttribute("aria-hidden", "false");
   openButton.setAttribute("disabled", "true");
-  openButton.querySelector("span:last-child").textContent = "Gift opened";
+  openButton.querySelector("span:last-child").textContent = "Gift opened 💖";
   document.body.classList.add("gift-is-open");
   celebrate();
   navigator.vibrate?.([24, 36, 24]);
@@ -84,7 +89,7 @@ document.querySelector("#playAgain")?.addEventListener("click", () => {
   giftContent.classList.add("is-hidden");
   giftContent.setAttribute("aria-hidden", "true");
   openButton.removeAttribute("disabled");
-  openButton.querySelector("span:last-child").textContent = "Open my gift";
+  openButton.querySelector("span:last-child").textContent = "Open my gift 🎁";
   document.body.classList.remove("gift-is-open");
   window.scrollTo({ top: 0, behavior: "smooth" });
 });

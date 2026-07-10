@@ -117,7 +117,7 @@
 
       <div class="controls">
         <label for="url">Gift page URL</label>
-        <input id="url" type="url" placeholder="https://your-gift-link.com" />
+        <input id="url" type="url" value="https://ishivamsoni150299.github.io/gift/for-sneha/" />
         <button type="button" id="make">Create QR code</button>
       </div>
 
@@ -133,7 +133,7 @@
       const make = document.querySelector("#make");
 
       function updateQr() {
-        const value = input.value.trim() || "https://your-gift-link.com";
+        const value = input.value.trim() || "https://ishivamsoni150299.github.io/gift/for-sneha/";
         qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=720x720&data=${encodeURIComponent(value)}`;
       }
 
