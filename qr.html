@@ -217,13 +217,28 @@
         text-transform: uppercase;
       }
 
+      .print-image-link {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 22px;
+        padding: 0 22px;
+        border-radius: 999px;
+        color: white;
+        background: var(--wine);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
       @media print {
         body {
           background: white;
         }
 
         .controls,
-        p {
+        p,
+        .print-image-link {
           display: none;
         }
 
@@ -257,6 +272,7 @@
         </div>
       </div>
       <div class="caption"><strong>For Sneha</strong><span>Scan with love · 17 July 2026</span></div>
+      <a class="print-image-link" href="Sneha-Heart-QR-Print.png" download>Download print-ready PNG</a>
     </main>
 
     <script>
