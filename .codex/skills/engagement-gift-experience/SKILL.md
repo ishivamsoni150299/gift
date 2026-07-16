@@ -14,7 +14,7 @@ Use these fixed story dates unless the user changes them:
 - Fiancee name: Sneha
 - Home name: Gudiya
 - Shivam's help number: 9473903051
-- First meeting: 9 November 2025
+- First meeting: 23 October 2025
 - She said yes: 14 June 2026
 - First chocolate gift: 8 July 2026
 - Engagement: 17 July 2026
