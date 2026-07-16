@@ -3,11 +3,6 @@ const openButton = document.querySelector("#openGift");
 const confettiLayer = document.querySelector(".confetti-layer");
 const moodNote = document.querySelector("#moodNote");
 
-const route = new URL(window.location.href);
-if (route.searchParams.get("from") === "for-sneha") {
-  window.history.replaceState({}, "", "./for-sneha/");
-}
-
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {

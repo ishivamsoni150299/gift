@@ -5,11 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fff7f8" />
     <title>Opening Sneha's Gift</title>
+    <style>
+      body {
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        margin: 0;
+        color: #5f1e32;
+        background: #fff7f8;
+        font-family: Georgia, serif;
+        text-align: center;
+      }
+
+      .loader {
+        display: grid;
+        gap: 12px;
+        justify-items: center;
+      }
+
+      .loader span {
+        font-size: 2.5rem;
+        animation: bloom 900ms ease-in-out infinite alternate;
+      }
+
+      .loader p {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      @keyframes bloom {
+        to {
+          transform: translateY(-8px) rotate(7deg) scale(1.08);
+        }
+      }
+    </style>
   </head>
   <body>
-    <p>Opening Sneha's gift...</p>
+    <div class="loader"><span aria-hidden="true">🌸</span><p>Opening Sneha's gift...</p></div>
     <script>
-      window.location.replace("../?from=for-sneha");
+      fetch("../index.html", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error("Gift page could not be loaded.");
+          return response.text();
+        })
+        .then((html) => {
+          const page = html.replace("<head>", '<head><base href="../" />');
+          document.open();
+          document.write(page);
+          document.close();
+        })
+        .catch(() => {
+          document.body.innerHTML = '<p><a href="../">Open Sneha\'s gift</a></p>';
+        });
     </script>
   </body>
 </html>
