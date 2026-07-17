@@ -2,6 +2,39 @@ const giftContent = document.querySelector("#giftContent");
 const openButton = document.querySelector("#openGift");
 const confettiLayer = document.querySelector(".confetti-layer");
 const moodNote = document.querySelector("#moodNote");
+const backgroundMusic = document.querySelector("#backgroundMusic");
+const musicToggle = document.querySelector("#musicToggle");
+const musicIcon = musicToggle?.querySelector(".music-toggle__icon");
+let volumeTimer;
+
+function setMusicState(isPlaying) {
+  musicToggle?.classList.toggle("is-playing", isPlaying);
+  musicToggle?.setAttribute("aria-label", isPlaying ? "Pause our song" : "Play our song");
+  if (musicIcon) musicIcon.textContent = isPlaying ? "II" : "\u266b";
+}
+
+function fadeMusicTo(targetVolume) {
+  window.clearInterval(volumeTimer);
+  const step = Math.max((targetVolume - backgroundMusic.volume) / 20, 0.01);
+
+  volumeTimer = window.setInterval(() => {
+    backgroundMusic.volume = Math.min(targetVolume, backgroundMusic.volume + step);
+    if (backgroundMusic.volume >= targetVolume) window.clearInterval(volumeTimer);
+  }, 40);
+}
+
+function playMusic() {
+  if (!backgroundMusic) return;
+  backgroundMusic.volume = 0.04;
+  const playback = backgroundMusic.play();
+
+  playback?.then(() => {
+    setMusicState(true);
+    fadeMusicTo(0.36);
+  }).catch(() => {
+    setMusicState(false);
+  });
+}
 
 const observer = new IntersectionObserver(
   (entries) => {
@@ -34,11 +67,13 @@ function celebrate() {
 }
 
 function openGift() {
+  playMusic();
   giftContent.classList.remove("is-hidden");
   giftContent.setAttribute("aria-hidden", "false");
   openButton.setAttribute("disabled", "true");
   openButton.querySelector("span:last-child").textContent = "Gift opened 💖";
   document.body.classList.add("gift-is-open");
+  musicToggle?.classList.add("is-visible");
   celebrate();
   navigator.vibrate?.([24, 36, 24]);
 
@@ -48,6 +83,16 @@ function openGift() {
 }
 
 openButton?.addEventListener("click", openGift);
+
+musicToggle?.addEventListener("click", () => {
+  if (backgroundMusic.paused) {
+    playMusic();
+  } else {
+    window.clearInterval(volumeTimer);
+    backgroundMusic.pause();
+    setMusicState(false);
+  }
+});
 
 document.querySelectorAll(".mood-photo").forEach((button) => {
   button.addEventListener("click", () => {
@@ -81,6 +126,11 @@ document.querySelectorAll(".tiny-note").forEach((button) => {
 });
 
 document.querySelector("#playAgain")?.addEventListener("click", () => {
+  window.clearInterval(volumeTimer);
+  backgroundMusic?.pause();
+  if (backgroundMusic) backgroundMusic.currentTime = 0;
+  setMusicState(false);
+  musicToggle?.classList.remove("is-visible");
   giftContent.classList.add("is-hidden");
   giftContent.setAttribute("aria-hidden", "true");
   openButton.removeAttribute("disabled");

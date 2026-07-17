@@ -15,6 +15,12 @@
   </head>
   <body>
     <div class="confetti-layer" aria-hidden="true"></div>
+    <audio id="backgroundMusic" preload="metadata" loop playsinline>
+      <source src="/gift/assets/pyar-ki-kashti.mp3" type="audio/mpeg" />
+    </audio>
+    <button class="music-toggle" type="button" id="musicToggle" aria-label="Pause our song" title="Play or pause our song">
+      <span class="music-toggle__icon" aria-hidden="true">II</span>
+    </button>
 
     <main>
       <section class="welcome" id="welcome" aria-labelledby="welcome-title">
